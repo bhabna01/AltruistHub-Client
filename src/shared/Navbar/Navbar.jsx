@@ -4,22 +4,71 @@ import logo from "../../assets/Logo.png"
 import { Link } from "react-router-dom";
 const Navbar = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
-
+    const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
     // Function to toggle the menu
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
     };
-    const navitems = <>
-        <li><Link to='/' current="page" className="block py-2 px-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-blue-500">Home</Link></li>
-        <li><Link to='' className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">My Profile</Link></li>
-        <li><Link to='' className="=block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Login</Link></li>
-        <li><Link to='' className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Logout</Link></li>
-
-
-
-
-
-    </>
+    const toggleProfileMenu = () => {
+        setIsProfileMenuOpen(!isProfileMenuOpen);
+    };
+    const navitems = (
+        <>
+            <li>
+                <Link
+                    to='/'
+                    current="page"
+                    className="block py-2 px-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-blue-500"
+                >
+                    Home
+                </Link>
+            </li>
+            <li className="relative">
+                <button
+                    onClick={toggleProfileMenu}
+                    className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
+                >
+                    My Profile
+                </button>
+                {isProfileMenuOpen && (
+                    <ul className="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 shadow-lg rounded-lg z-10">
+                        <li>
+                            <Link
+                                to="/add-volunteer-post"
+                                className="block py-2 px-4 text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+                            >
+                                Add Volunteer Post
+                            </Link>
+                        </li>
+                        <li>
+                            <Link
+                                to="/manage-my-post"
+                                className="block py-2 px-4 text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+                            >
+                                Manage My Post
+                            </Link>
+                        </li>
+                    </ul>
+                )}
+            </li>
+            <li>
+                <Link
+                    to=''
+                    className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
+                >
+                    Login
+                </Link>
+            </li>
+            <li>
+                <Link
+                    to=''
+                    className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
+                >
+                    Logout
+                </Link>
+            </li>
+        </>
+    );
     return (
         <nav className="bg-white dark:bg-gray-900 sticky w-full z-20 top-0 start-0 border-b border-gray-200 dark:border-gray-600 mb-10">
             <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
