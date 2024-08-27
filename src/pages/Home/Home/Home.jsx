@@ -1,11 +1,16 @@
-import { Button } from "flowbite-react";
+
 import Banner from "../Banner/Banner";
+import VolunteerNeed from "../VounteerNeed/VolunteerNeed";
 
 
 const Home = () => {
     return (
 
-        <Banner></Banner>
+        <>
+
+            <Banner></Banner>
+            <VolunteerNeed></VolunteerNeed>
+        </>
 
     );
 };
