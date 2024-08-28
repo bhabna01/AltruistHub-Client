@@ -18,6 +18,7 @@ const Register = () => {
         try {
             await createUser(data.email, data.password);
             toast.success('Successfully registered!');
+            // eslint-disable-next-line no-unused-vars
         } catch (error) {
             toast.error('Registration failed!');
         }
