@@ -12,6 +12,7 @@
   "dependencies": {
     "@emotion/react": "^11.13.3",
     "axios": "^1.7.5",
+    "firebase": "^10.13.0",
     "flowbite": "^2.5.1",
     "flowbite-react": "^0.10.1",
     "lottie-react": "^2.4.0",
