@@ -6,21 +6,50 @@ import animationData from "../../../public/Login.json"
 import { Link } from "react-router-dom";
 const Register = () => {
     const { register, handleSubmit, watch } = useForm();
-    const { createUser } = useAuth();
+    const { createUser, loading, updateUserProfile } = useAuth();
     const password = watch('password');
 
-    const onSubmit = async (data) => {
-        if (!/^(?=.*[a-z])(?=.*[A-Z]).{6,}$/.test(password)) {
-            toast.error('Password must have an uppercase letter, a lowercase letter, and be at least 6 characters long.');
-            return;
-        }
 
+    // const onSubmit = async (data) => {
+    //     if (!/^(?=.*[a-z])(?=.*[A-Z]).{6,}$/.test(password)) {
+    //         toast.error('Password must have an uppercase letter, a lowercase letter, and be at least 6 characters long.');
+    //         return;
+    //     }
+
+    //     try {
+    //        const userCredential= await createUser(data.email, data.password);
+    //        const user=userCredential.user;
+
+    //         toast.success('Successfully registered!');
+    //         // eslint-disable-next-line no-unused-vars
+    //     } catch (error) {
+    //         toast.error('Registration failed!');
+    //     }
+    // };
+    const onSubmit = async (data) => {
         try {
-            await createUser(data.email, data.password);
+            const result = await createUser(data.email, data.password);
+            const user = result.user;
+            console.log(user);
+
+            await handleUpdateUser(data.name, data.photoURL);
             toast.success('Successfully registered!');
-            // eslint-disable-next-line no-unused-vars
         } catch (error) {
+            console.error(error);
             toast.error('Registration failed!');
+        }
+    };
+    const handleUpdateUser = async (name, photoURL) => {
+        const profile = {
+            displayName: name,
+            photoURL: photoURL,
+        };
+        try {
+            await updateUserProfile(profile);
+            toast.success('Profile updated!');
+        } catch (error) {
+            console.error(error);
+            toast.error('Profile update failed!');
         }
     };
     return (

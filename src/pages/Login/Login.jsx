@@ -4,15 +4,20 @@ import useAuth from "../../hooks/useAuth";
 import Lottie from "lottie-react";
 import animationData from "../../../public/Login.json"
 import { GoogleAuthProvider } from "firebase/auth";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const Login = () => {
     const { register, handleSubmit } = useForm();
     const { signIn, googleLogin } = useAuth();
     const googleProvider = new GoogleAuthProvider();
+    const location = useLocation();
+    const navigate = useNavigate();
+    const from = location.state?.from?.pathname || '/';
     const onSubmit = async (data) => {
         try {
             await signIn(data.email, data.password);
             toast.success('Successfully logged in!');
+            navigate(from, { repalce: true });
             // eslint-disable-next-line no-unused-vars
         } catch (error) {
             toast.error('Login failed! Please check your email and password.');
@@ -23,6 +28,8 @@ const Login = () => {
         try {
             await googleLogin(googleProvider);
             toast.success('Successfully logged in with Google!');
+
+            navigate(from, { repalce: true });
             // eslint-disable-next-line no-unused-vars
         } catch (error) {
             toast.error('Google login failed!');
@@ -65,7 +72,7 @@ const Login = () => {
                     >
                         Login with Google
                     </button>
-                    <p className="text-center text-gray-600">Dont have an account? <a href="/register" className="text-blue-500 hover:text-blue-600">Register</a></p>
+                    <p className="text-center text-gray-600">Dont have an account? <Link to="/register" className="text-blue-500 hover:text-blue-600">Register</Link></p>
                 </form>
             </div>
 
