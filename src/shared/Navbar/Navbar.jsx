@@ -5,7 +5,10 @@ import { Link } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import { Button } from "flowbite-react";
 import { Tooltip } from "react-tooltip";
+import { useTheme } from "../../providers/ThemeProvider";
+
 const Navbar = () => {
+    const { theme, toggleTheme } = useTheme();
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
     const { user, logOut } = useAuth()
@@ -131,9 +134,22 @@ const Navbar = () => {
                                 Manage My Post
                             </Link>
                         </li>
+
                     </ul>
                 )}
             </li>
+            <li>
+                <button
+                    onClick={toggleTheme}
+                    className="  dark:bg-gray-800 rounded"
+                >
+
+                    {theme === 'light' ? '🌙 Dark Mode' : '☀️ Light Mode'}
+
+                </button>
+            </li>
+
+
 
         </>
     );

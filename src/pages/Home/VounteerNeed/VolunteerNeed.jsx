@@ -8,7 +8,7 @@ const VolunteerNeed = () => {
     const volunteers = useVolunteers()
     console.log(volunteers)
     return (
-        <div className="p-4 mt-10">
+        <div className="p-4 mt-10 dark:bg-gray-800">
             <SectionHeader
                 title=" Volunteer Needs Now "
                 subtitle="Find meaningful ways to contribute to the community with our volunteer programs."
