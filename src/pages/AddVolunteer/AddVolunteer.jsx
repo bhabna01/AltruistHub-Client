@@ -20,7 +20,8 @@ const AddVolunteer = () => {
         };
 
         try {
-            axiosSecure.post('/volunteers', postData);
+            await axiosSecure.post('/volunteers', postData);
+
             toast.success('Volunteer post added successfully!');
             reset();
 
