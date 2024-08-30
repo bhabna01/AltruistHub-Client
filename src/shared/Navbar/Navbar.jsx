@@ -26,85 +26,14 @@ const Navbar = () => {
     }
 
 
-    // const navitems = (
-    //     <>
-    //         <li>
-    //             <Link
-    //                 to='/'
-    //                 current="page"
-    //                 className="block py-2 px-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-blue-500"
-    //             >
-    //                 Home
-    //             </Link>
-    //         </li>
-    //         <li className="relative">
-    //             <button
-    //                 onClick={toggleProfileMenu}
-    //                 className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
-    //             >
-    //                 My Profile
-    //             </button>
-    //             {isProfileMenuOpen && (
-    //                 <ul className="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 shadow-lg rounded-lg z-10">
-    //                     <li>
-    //                         <Link
-    //                             to="/add-volunteer-post"
-    //                             className="block py-2 px-4 text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
-    //                         >
-    //                             Add Volunteer Post
-    //                         </Link>
-    //                     </li>
-    //                     <li>
-    //                         <Link
-    //                             to="/manage-my-post"
-    //                             className="block py-2 px-4 text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
-    //                         >
-    //                             Manage My Post
-    //                         </Link>
-    //                     </li>
-    //                 </ul>
-    //             )}
-    //         </li>
-    //         {user ? (
-    //             <>
-    //                 <li>
-    //                     <img
-    //                         src={user.photoURL}
-    //                         alt="Profile"
-    //                         className="w-10 h-10 rounded-full cursor-pointer"
-    //                         // data-tooltip-id={user.displayName} // Tooltip data
-    //                         data-tooltip-id="my-tooltip" data-tooltip-content={user.displayName}
-    //                     />
-    //                     <Tooltip id="my-tooltip" />
-    //                 </li>
-    //                 <li>
-    //                     <Button
-    //                         onClick={handleLogOut}
-    //                         color="blue" pill
-    //                     >
-    //                         Logout
-    //                     </Button>
-    //                 </li>
-    //             </>
-    //         ) : (
-    //             <li>
-    //                 <Link
-    //                     to='/login'
-    //                     className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
-    //                 >
-    //                     Login
-    //                 </Link>
-    //             </li>
-    //         )}
-    //     </>
-    // );
+
 
     const navitems = (
         <>
             <li>
                 <Link
                     to='/'
-                    className=""
+                    className="dark:text-white"
                 >
                     Home
                 </Link>
@@ -112,15 +41,15 @@ const Navbar = () => {
             <li >
                 <button
                     onClick={toggleProfileMenu}
-                    className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+                    className="block  text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
                 >
                     My Profile
                 </button>
                 {isProfileMenuOpen && (
-                    <ul className="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 shadow-lg rounded-lg z-10">
+                    <ul className="absolute  mt-2 w-48 bg-white dark:bg-gray-800 shadow-lg rounded-lg z-10">
                         <li>
                             <Link
-                                to="/add-volunteer-post"
+                                to="/add-volunteer"
                                 className="block py-2 px-4 text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
                             >
                                 Add Volunteer Post
@@ -141,7 +70,7 @@ const Navbar = () => {
             <li>
                 <button
                     onClick={toggleTheme}
-                    className="  dark:bg-gray-800 rounded"
+                    className="  dark:bg-gray-800 rounded dark:text-white"
                 >
 
                     {theme === 'light' ? '🌙 Dark Mode' : '☀️ Light Mode'}
