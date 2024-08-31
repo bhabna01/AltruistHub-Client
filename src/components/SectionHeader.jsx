@@ -1,5 +1,6 @@
 
 
+// eslint-disable-next-line react/prop-types
 const SectionHeader = ({ title, subtitle }) => {
     return (
         <div className="text-center mb-12">

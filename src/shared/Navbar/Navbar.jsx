@@ -96,11 +96,11 @@ const Navbar = () => {
                         <div className="flex justify-end">
 
                             <img
-                                src={user.photoURL}
+                                src={user?.photoURL}
                                 alt="Profile"
                                 className="w-10 h-10 rounded-full cursor-pointer"
                                 data-tooltip-id="my-tooltip"
-                                data-tooltip-content={user.displayName}
+                                data-tooltip-content={user?.displayName}
                             />
 
                             <Tooltip id="my-tooltip" />

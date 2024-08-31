@@ -10,6 +10,7 @@ const useVolunteers = (searchQuery = '') => {
         })
             .then(res => setVolunteers(res.data))
     }, [searchQuery])
+
     return volunteers
 };
 
