@@ -25,18 +25,7 @@ const VolunteerNeed = () => {
                             className="h-48 w-full object-cover"
                         />
                         <div className="p-4 flex-1 flex flex-col justify-between">
-                            {/* <div>
-                                <h5 className="text-xl font-semibold tracking-tight text-gray-900 dark:text-white mb-2">
-                                    {volunteer.postTitle}
-                                </h5>
-                                <p className="text-sm text-gray-500 dark:text-gray-400">
-                                    Category: {volunteer.category}
-                                </p>
-                                <p className="text-sm text-gray-500 dark:text-gray-400">
-                                    Deadline: {new Date(volunteer.deadline).toLocaleDateString()}
-                                </p>
-                            
-                            </div> */}
+
                             <div className="p-4 bg-white dark:bg-gray-800 rounded-lg ">
                                 <h5 className="text-2xl font-bold tracking-wide text-gray-900 dark:text-white mb-3">
                                     {volunteer.postTitle}

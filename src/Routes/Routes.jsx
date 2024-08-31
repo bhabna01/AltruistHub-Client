@@ -6,6 +6,7 @@ import Register from "../pages/Register/Register";
 import Login from "../pages/Login/Login";
 import AddVolunteer from "../pages/AddVolunteer/AddVolunteer";
 import PrivateRoute from "./PrivateRoute";
+import NeedVolunteer from "../pages/NeedVolunteer/NeedVolunteer";
 
 const router = createBrowserRouter([
     {
@@ -28,6 +29,10 @@ const router = createBrowserRouter([
                 path: "/add-volunteer",
                 element: <PrivateRoute><AddVolunteer></AddVolunteer></PrivateRoute>
             },
+            {
+                path: "/need-volunteer",
+                element: <NeedVolunteer></NeedVolunteer>
+            }
         ]
     },
     {
