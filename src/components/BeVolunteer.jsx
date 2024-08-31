@@ -1,12 +1,32 @@
 /* eslint-disable react/prop-types */
-import { useState } from "react";
-import useAuth from "../hooks/useAuth";
+import { useCallback, useEffect, useState } from "react";
+
+import { axiosSecure } from "../hooks/useAxiosSecure";
+
 
 const BeVolunteer = ({ volunteer, closeModal, user }) => {
-    const { thumbnail, postTitle, } = volunteer
-    const [suggestion, setSuggestion] = useState("");
 
-    const handleRequest = async () => {
+    const [suggestion, setSuggestion] = useState("");
+    const [isRequestSent, setIsRequestSent] = useState(false);
+
+    // const handleRequest = async () => {
+    //     const requestData = {
+    //         ...volunteer,
+    //         volunteerName: user?.displayName,
+    //         volunteerEmail: user?.email,
+    //         suggestion,
+    //         status: "requested"
+    //     };
+    //     try {
+    //         await axiosSecure.post("/volunteer-request", requestData)
+    //         await axiosSecure.patch(`/volunteers/${volunteer._id}`, { $inc: { volunteersNeeded: -1 } });
+    //         setIsRequestSent(true);
+    //         // closeModal()
+    //     } catch (error) {
+    //         console.log(error)
+    //     }
+    // }
+    const handleRequest = useCallback(async () => {
         const requestData = {
             ...volunteer,
             volunteerName: user?.displayName,
@@ -14,7 +34,23 @@ const BeVolunteer = ({ volunteer, closeModal, user }) => {
             suggestion,
             status: "requested"
         };
-    }
+        try {
+            await axiosSecure.post("/volunteer-request", requestData);
+            await axiosSecure.patch(`/volunteers/${volunteer._id}`, { $inc: { volunteersNeeded: -1 } });
+            localStorage.setItem(`requestSent_${volunteer._id}`, 'true');
+            setIsRequestSent(true);
+            closeModal();
+        } catch (error) {
+            console.log(error);
+        }
+    }, [volunteer, user, suggestion, closeModal]);
+    useEffect(() => {
+
+        const requestStatus = localStorage.getItem(`requestSent_${volunteer._id}`);
+        if (requestStatus === 'true') {
+            setIsRequestSent(true);
+        }
+    }, [volunteer._id])
     return (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
             <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg max-w-lg w-full max-h-[90vh] overflow-y-auto">
@@ -71,8 +107,15 @@ const BeVolunteer = ({ volunteer, closeModal, user }) => {
                 </div>
                 <div className="mt-4 flex justify-end">
                     <button onClick={closeModal} className="bg-gray-300 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-400 mr-2">Cancel</button>
-                    <button onClick={handleRequest} className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">Request</button>
+                    <button
+                        onClick={handleRequest}
+                        disabled={isRequestSent} // Disable button if request is sent
+                        className={`bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 ${isRequestSent ? 'opacity-50 cursor-not-allowed' : ''}`}
+                    >
+                        {isRequestSent ? 'Request Sent' : 'Request'}
+                    </button>
                 </div>
+
             </div>
         </div>
 
