@@ -57,7 +57,7 @@ const Navbar = () => {
                         </li>
                         <li>
                             <Link
-                                to="/manage-my-post"
+                                to="/manage-post"
                                 className="block py-2 px-4 text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
                             >
                                 Manage My Post
