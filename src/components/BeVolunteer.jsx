@@ -1,7 +1,9 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import { useCallback, useEffect, useState } from "react";
 
 import { axiosSecure } from "../hooks/useAxiosSecure";
+import { toast } from "react-toastify";
 
 
 const BeVolunteer = ({ volunteer, closeModal, user }) => {
@@ -9,26 +11,10 @@ const BeVolunteer = ({ volunteer, closeModal, user }) => {
     const [suggestion, setSuggestion] = useState("");
     const [isRequestSent, setIsRequestSent] = useState(false);
 
-    // const handleRequest = async () => {
-    //     const requestData = {
-    //         ...volunteer,
-    //         volunteerName: user?.displayName,
-    //         volunteerEmail: user?.email,
-    //         suggestion,
-    //         status: "requested"
-    //     };
-    //     try {
-    //         await axiosSecure.post("/volunteer-request", requestData)
-    //         await axiosSecure.patch(`/volunteers/${volunteer._id}`, { $inc: { volunteersNeeded: -1 } });
-    //         setIsRequestSent(true);
-    //         // closeModal()
-    //     } catch (error) {
-    //         console.log(error)
-    //     }
-    // }
+    const { _id, ...volunteerData } = volunteer;
     const handleRequest = useCallback(async () => {
         const requestData = {
-            ...volunteer,
+            ...volunteerData,
             volunteerName: user?.displayName,
             volunteerEmail: user?.email,
             suggestion,
@@ -39,11 +25,12 @@ const BeVolunteer = ({ volunteer, closeModal, user }) => {
             await axiosSecure.patch(`/volunteers/${volunteer._id}`, { $inc: { volunteersNeeded: -1 } });
             localStorage.setItem(`requestSent_${volunteer._id}`, 'true');
             setIsRequestSent(true);
+            toast.success("Request sent successfully")
             closeModal();
         } catch (error) {
             console.log(error);
         }
-    }, [volunteer, user, suggestion, closeModal]);
+    }, [volunteerData, volunteer._id, user, suggestion, closeModal]);
     useEffect(() => {
 
         const requestStatus = localStorage.getItem(`requestSent_${volunteer._id}`);
