@@ -1,18 +1,24 @@
 import { useEffect, useState } from "react";
 import useAuth from "../hooks/useAuth";
 import axios from "axios";
-import { Button, Modal, Table } from "flowbite-react";
+import { Button, Table } from "flowbite-react";
 import UpdateMyPost from "./UpdateMyPost";
 import { toast } from "react-toastify";
 import { axiosSecure } from "../hooks/useAxiosSecure";
-
+import Swal from "sweetalert2";
 
 const MyNeedVolunteerPost = () => {
+
+
     const { user } = useAuth();
     const url = `http://localhost:5000/volunteers?email=${user?.email}`
     const [volunteers, setVolunteers] = useState([]);
     const [selectedPost, setSelectedPost] = useState(null);
     const [showUpdateModal, setShowUpdateModal] = useState(false);
+
+
+
+
     const handleUpdateClick = (post) => {
         setSelectedPost(post);
         setShowUpdateModal(true);
@@ -23,7 +29,7 @@ const MyNeedVolunteerPost = () => {
             axios.get(url)
                 .then(res => {
                     setVolunteers(res.data);
-                    console.log(res.data)
+
 
                 })
                 .catch(error => {
@@ -34,8 +40,26 @@ const MyNeedVolunteerPost = () => {
     const handleDeleteClick = async (id) => {
         try {
             await axiosSecure.delete(`/volunteers/${id}`);
+            Swal.fire({
+                title: "Are you sure?",
+                text: "You won't be able to revert this!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, delete it!"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire({
+                        title: "Deleted!",
+                        text: "Your file has been deleted.",
+                        icon: "success"
+                    });
+                }
+            });
             setVolunteers((prev) => prev.filter(post => post._id !== id));
-            toast.success("Post deleted successfully");
+
+
         } catch (error) {
             console.error('Error deleting post:', error);
             toast.error("Failed to delete post");
@@ -79,17 +103,7 @@ const MyNeedVolunteerPost = () => {
                 />
             )}
 
-            {/* Delete Confirmation Modal */}
-            <Modal  >
-                <Modal.Header>Delete Volunteer Post</Modal.Header>
-                <Modal.Body>
-                    <p>Are you sure you want to delete this post?</p>
-                </Modal.Body>
-                <Modal.Footer>
-                    <Button color="failure">Delete</Button>
-                    <Button >Cancel</Button>
-                </Modal.Footer>
-            </Modal>
+
         </div>
     );
 };
