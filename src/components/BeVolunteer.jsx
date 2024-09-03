@@ -9,7 +9,7 @@ import { toast } from "react-toastify";
 const BeVolunteer = ({ volunteer, closeModal, user }) => {
 
     const [suggestion, setSuggestion] = useState("");
-    const [isRequestSent, setIsRequestSent] = useState(false);
+
 
     const { _id, ...volunteerData } = volunteer;
     const handleRequest = useCallback(async () => {
@@ -23,21 +23,15 @@ const BeVolunteer = ({ volunteer, closeModal, user }) => {
         try {
             await axiosSecure.post("/volunteer-request", requestData);
             await axiosSecure.patch(`/volunteers/${volunteer._id}`, { $inc: { volunteersNeeded: -1 } });
-            localStorage.setItem(`requestSent_${volunteer._id}`, 'true');
-            setIsRequestSent(true);
+
+
             toast.success("Request sent successfully")
             closeModal();
         } catch (error) {
             console.log(error);
         }
     }, [volunteerData, volunteer._id, user, suggestion, closeModal]);
-    useEffect(() => {
 
-        const requestStatus = localStorage.getItem(`requestSent_${volunteer._id}`);
-        if (requestStatus === 'true') {
-            setIsRequestSent(true);
-        }
-    }, [volunteer._id])
     return (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
             <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg max-w-lg w-full max-h-[90vh] overflow-y-auto">
@@ -96,10 +90,10 @@ const BeVolunteer = ({ volunteer, closeModal, user }) => {
                     <button onClick={closeModal} className="bg-gray-300 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-400 mr-2">Cancel</button>
                     <button
                         onClick={handleRequest}
-                        disabled={isRequestSent} // Disable button if request is sent
-                        className={`bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 ${isRequestSent ? 'opacity-50 cursor-not-allowed' : ''}`}
+
+                        className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 "
                     >
-                        {isRequestSent ? 'Request Sent' : 'Request'}
+                        Request
                     </button>
                 </div>
 

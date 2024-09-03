@@ -2,12 +2,21 @@ import { useEffect, useState } from "react";
 import useAuth from "../hooks/useAuth";
 import axios from "axios";
 import { Button, Modal, Table } from "flowbite-react";
+import UpdateMyPost from "./UpdateMyPost";
+import { toast } from "react-toastify";
+import { axiosSecure } from "../hooks/useAxiosSecure";
 
 
 const MyNeedVolunteerPost = () => {
     const { user } = useAuth();
     const url = `http://localhost:5000/volunteers?email=${user?.email}`
     const [volunteers, setVolunteers] = useState([]);
+    const [selectedPost, setSelectedPost] = useState(null);
+    const [showUpdateModal, setShowUpdateModal] = useState(false);
+    const handleUpdateClick = (post) => {
+        setSelectedPost(post);
+        setShowUpdateModal(true);
+    };
 
     useEffect(() => {
         if (user?.email) {
@@ -22,6 +31,16 @@ const MyNeedVolunteerPost = () => {
                 });
         }
     }, [url, user?.email]);
+    const handleDeleteClick = async (id) => {
+        try {
+            await axiosSecure.delete(`/volunteers/${id}`);
+            setVolunteers((prev) => prev.filter(post => post._id !== id));
+            toast.success("Post deleted successfully");
+        } catch (error) {
+            console.error('Error deleting post:', error);
+            toast.error("Failed to delete post");
+        }
+    };
     return (
         <div>
             <h2 className="text-2xl font-bold mb-4">My Need Volunteer Post</h2>
@@ -42,8 +61,8 @@ const MyNeedVolunteerPost = () => {
                                 <Table.Cell>{post.category}</Table.Cell>
                                 <Table.Cell>{post.location}</Table.Cell>
                                 <Table.Cell>
-                                    <Button className="mr-2">Update</Button>
-                                    <Button color="failure">Delete</Button>
+                                    <Button className="mr-2" onClick={() => handleUpdateClick(post)}>Update</Button>
+                                    <Button onClick={() => handleDeleteClick(post._id)} color="failure">Delete</Button>
                                 </Table.Cell>
                             </Table.Row>
                         ))}
@@ -52,23 +71,13 @@ const MyNeedVolunteerPost = () => {
             )}
 
             {/* Update Post Modal */}
-            <Modal >
-                <Modal.Header>Update Volunteer Post</Modal.Header>
-                <Modal.Body>
-                    <form >
-                        <div className="mb-4">
-                            <label className="block text-sm font-medium text-gray-700">Post Title</label>
-                            <input
-                                type="text"
-
-                                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                            />
-                        </div>
-                        {/* Repeat for other fields: Description, Category, Location, etc. */}
-                        <Button type="submit">Update Post</Button>
-                    </form>
-                </Modal.Body>
-            </Modal>
+            {selectedPost && (
+                <UpdateMyPost
+                    volunteer={selectedPost}
+                    showModal={showUpdateModal}
+                    closeModal={() => setShowUpdateModal(false)}
+                />
+            )}
 
             {/* Delete Confirmation Modal */}
             <Modal  >
