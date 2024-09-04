@@ -7,7 +7,7 @@ import { GoogleAuthProvider } from "firebase/auth";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const Login = () => {
-    const { register, handleSubmit } = useForm();
+    const { register, handleSubmit, } = useForm();
     const { signIn, googleLogin } = useAuth();
     const googleProvider = new GoogleAuthProvider();
     const location = useLocation();
@@ -16,6 +16,7 @@ const Login = () => {
     const onSubmit = async (data) => {
         try {
             await signIn(data.email, data.password);
+
             toast.success('Successfully logged in!');
             navigate(from, { repalce: true });
             // eslint-disable-next-line no-unused-vars
@@ -27,7 +28,9 @@ const Login = () => {
     const handleGoogleLogin = async () => {
         try {
             await googleLogin(googleProvider);
+
             toast.success('Successfully logged in with Google!');
+
 
             navigate(from, { repalce: true });
             // eslint-disable-next-line no-unused-vars
@@ -35,6 +38,7 @@ const Login = () => {
             toast.error('Google login failed!');
         }
     };
+
     return (
         <div className="flex flex-col md:flex-row items-center justify-center h-screen bg-gradient-to-r from-blue-50 to-blue-100">
             <div className="w-full md:w-1/2 h-full flex items-center justify-center p-4">

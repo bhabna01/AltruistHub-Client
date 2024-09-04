@@ -42,7 +42,7 @@ const MyRequestPost = () => {
 
     return (
         <div>
-            <h2 className="text-2xl font-bold mb-4">My Volunteer Request Post</h2>
+            <h2 className="text-2xl font-bold mb-4 text-center">My Volunteer Request Post</h2>
             {posts.length === 0 ? (
                 <p>No volunteer requests available.</p>
             ) : (

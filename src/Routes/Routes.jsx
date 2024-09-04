@@ -45,7 +45,7 @@ const router = createBrowserRouter([
             },
             {
                 path: "/manage-post",
-                element: <ManagePost></ManagePost>
+                element: <PrivateRoute><ManagePost></ManagePost></PrivateRoute>
             }
             ,
         ]

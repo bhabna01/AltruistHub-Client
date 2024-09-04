@@ -67,7 +67,7 @@ const MyNeedVolunteerPost = () => {
     };
     return (
         <div>
-            <h2 className="text-2xl font-bold mb-4">My Need Volunteer Post</h2>
+            <h2 className="text-2xl font-bold mb-4 text-center">My Need Volunteer Post</h2>
             {volunteers.length === 0 ? (
                 <p>No posts available. Add a post to see it here.</p>
             ) : (

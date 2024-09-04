@@ -92,24 +92,27 @@ const Navbar = () => {
 
 
                 <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
-                    {user ? (
+                    {user?.uid ? (
                         <div className="flex justify-end">
 
-                            <img
-                                src={user?.photoURL}
-                                alt="Profile"
-                                className="w-10 h-10 rounded-full cursor-pointer"
-                                data-tooltip-id="my-tooltip"
-                                data-tooltip-content={user?.displayName}
-                            />
+                            <>
+                                <img
+                                    src={user?.photoURL}
+                                    alt="Profile"
+                                    className="w-10 h-10 rounded-full cursor-pointer "
 
-                            <Tooltip id="my-tooltip" />
+                                    data-tooltip-id="my-tooltip"
+                                    data-tooltip-content={user?.displayName}
+                                />
 
+                                <Tooltip id="my-tooltip" />
+                            </>
 
-                            <Button onClick={handleLogOut} color="blue" pill>
-                                Logout
-                            </Button>
-
+                            <>
+                                <Button onClick={handleLogOut} color="blue" pill>
+                                    Logout
+                                </Button>
+                            </>
 
                         </div>
                     ) : (

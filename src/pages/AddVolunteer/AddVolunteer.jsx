@@ -5,6 +5,7 @@ import useAuth from "../../hooks/useAuth";
 import { toast } from "react-toastify";
 import DatePicker from "react-datepicker";
 import 'react-datepicker/dist/react-datepicker.css';
+import SectionHeader from "../../components/SectionHeader";
 
 
 const AddVolunteer = () => {
@@ -32,7 +33,10 @@ const AddVolunteer = () => {
     };
     return (
         <div className="max-w-3xl mx-auto p-8 bg-white shadow-md rounded-lg">
-            <h2 className="text-2xl font-bold mb-6">Add Volunteer Post</h2>
+            <SectionHeader
+                title="Add a Volunteer Opportunity"
+                subtitle="Create a new volunteer post to engage community members in meaningful activities."
+            />
             <form onSubmit={handleSubmit(onSubmit)}>
                 {/* Thumbnail */}
                 <div className="mb-4">
