@@ -40,7 +40,7 @@ const router = createBrowserRouter([
             {
                 path: "/volunteer/:id",
                 element: <VolunteerDetails></VolunteerDetails>,
-                loader: ({ params }) => fetch(`http://localhost:5000/volunteers/${params.id}`)
+                loader: ({ params }) => fetch(`https://altruist-backend.vercel.app/volunteers/${params.id}`)
 
             },
             {

@@ -11,7 +11,7 @@ const MyNeedVolunteerPost = () => {
 
 
     const { user } = useAuth();
-    const url = `http://localhost:5000/volunteers?email=${user?.email}`
+    const url = `https://altruist-backend.vercel.app/volunteers?email=${user?.email}`
     const [volunteers, setVolunteers] = useState([]);
     const [selectedPost, setSelectedPost] = useState(null);
     const [showUpdateModal, setShowUpdateModal] = useState(false);

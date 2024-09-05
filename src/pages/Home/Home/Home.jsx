@@ -1,5 +1,6 @@
 
 import Banner from "../Banner/Banner";
+import Testimonial from "../Testimonial/Testimonial";
 import VolunteerNeed from "../VounteerNeed/VolunteerNeed";
 
 
@@ -10,6 +11,7 @@ const Home = () => {
 
             <Banner></Banner>
             <VolunteerNeed></VolunteerNeed>
+            <Testimonial></Testimonial>
         </>
 
     );
